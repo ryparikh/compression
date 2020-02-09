@@ -5,7 +5,7 @@
 
 #include <memory>
 
-#include "CompressionTypes.h"
+#include <Compressor/CompressionTypes.h>
 
 struct ICompressor;
 

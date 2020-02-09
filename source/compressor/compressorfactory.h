@@ -1,4 +1,4 @@
-#include <ICompressorFactory.h>
+#include <Compressor/ICompressorFactory.h>
 
 class CompressorFactory final : public ICompressorFactory
 {

@@ -1,6 +1,6 @@
 #include <iostream>
-#include <ICompressor.h>
-#include <ICompressorFactory.h>
+#include <Compressor/ICompressor.h>
+#include <Compressor/ICompressorFactory.h>
 
 int main()
 {

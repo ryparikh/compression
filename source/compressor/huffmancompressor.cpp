@@ -13,31 +13,15 @@ Result HuffmanCompressor::compress_byte_stream(const std::vector<std::byte>& unc
 
 	// make reversed vector to make use of pop_back/push_back for stack.
 	std::vector<std::unique_ptr<Node>> orderedDistribution;
-	Result result = order_frequency_count(frequencyCount, /* out */ orderedDistribution);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
+	IfFailRet(order_frequency_count(frequencyCount, /* out */ orderedDistribution));
 
 	std::unique_ptr<Node> spHuffmanTree;
-	result = build_encoding_tree(orderedDistribution, /* out */ spHuffmanTree);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
+	IfFailRet(build_encoding_tree(orderedDistribution, /* out */ spHuffmanTree));
 
 	std::map<std::byte, Encoding> encodingMap;
-	result = build_encoding_map(spHuffmanTree.get(), encodingMap);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
+	IfFailRet(build_encoding_map(spHuffmanTree.get(), encodingMap));
 
-	result = compress(uncompressedStream, encodingMap, /* out */ compressedStream);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
+	IfFailRet(compress(uncompressedStream, encodingMap, /* out */ compressedStream));
 
 	return Result::Ok;
 }
@@ -90,17 +74,8 @@ Result HuffmanCompressor::build_encoding_map_core(Node* node, bool fZero, unsign
 	}
 
 	code |= fZero ? static_cast<std::byte>(0) : static_cast<std::byte>(1);
-	Result result = build_encoding_map_core(node->m_spLeft.get(), true /* fZero */, codeLength + 1, code << 1, encodingMap);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
-
-	result = build_encoding_map_core(node->m_spRight.get(), false /* fZero */, codeLength + 1, code << 1, encodingMap);
-	if (result != Result::Ok)
-	{
-		return result;
-	}
+	IfFailRet(build_encoding_map_core(node->m_spLeft.get(), true /* fZero */, codeLength + 1, code << 1, encodingMap));
+	IfFailRet(build_encoding_map_core(node->m_spRight.get(), false /* fZero */, codeLength + 1, code << 1, encodingMap));
 
 	if (node->m_spLeft == nullptr && node->m_spRight == nullptr)
 	{

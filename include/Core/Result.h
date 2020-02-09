@@ -12,4 +12,6 @@ enum class Result : std::uint64_t
 	OutOfMemory,
 };
 
+#define IfFailRet(result) if ((result) != Result::Ok) return result;
+
 #endif /* RESULT_H */
