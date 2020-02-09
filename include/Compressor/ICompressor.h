@@ -6,7 +6,7 @@
 #include <cstddef>
 #include <vector>
 
-#include "Result.h"
+#include <Core/Result.h>
 
 struct ICompressor
 {

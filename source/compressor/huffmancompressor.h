@@ -1,6 +1,6 @@
 #include <map>
 
-#include <ICompressor.h>
+#include <Compressor/ICompressor.h>
 
 class HuffmanCompressor final : public ICompressor
 {
